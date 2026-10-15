@@ -6,10 +6,11 @@ import {
   ItemContent,
   ItemDescription,
   ItemTitle, Label, MovieCollectionSchema, MovieSchema,
-  ScrollArea, Spinner,
+  ScrollArea, Spinner, useFilterStore,
 } from "@/shared";
 import Image from "next/image";
 import {keepPreviousData, useQuery} from "@tanstack/react-query";
+import {FilterStore} from "@/shared/lib/types/store.interface";
 
 const movieAPI = new API("movie", {
   item: MovieSchema,
@@ -20,9 +21,14 @@ const movieAPI = new API("movie", {
 const STALE = 10 * 1000;
 
 export const FieldListGroup = () => {
+  const categories = useFilterStore((s: FilterStore) => s.categories)
+
   const { data, isPending, error } = useQuery({
-    queryKey: ["movies"],
-    queryFn: () => movieAPI.getAll(),
+    queryKey: ["movies", categories],
+    queryFn: () => {
+      const query = categories.map((category) => `filterBy=${category}`).join("&");
+      return movieAPI.getAll({ query })
+    },
     staleTime: STALE * 6,
     placeholderData: keepPreviousData,
     refetchInterval: STALE * 8,

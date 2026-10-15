@@ -1,10 +1,16 @@
 import { app } from "@/shared"
 import { ZodType, z } from "zod"
 
-type Schemas<Titem extends ZodType, TCreate extends ZodType, TList extends ZodType> = {
-    item: Titem
+type Schemas<TItem extends ZodType, TCreate extends ZodType, TList extends ZodType> = {
+    item: TItem
     create:  TCreate
     list: TList
+}
+
+interface Query {
+    limit?: number
+    page?: number
+    query?: string
 }
 
 export class API<
@@ -17,7 +23,7 @@ export class API<
         private readonly schemas: Schemas<TItem, TCreate, TList>
     ) {}
 
-    #querys(limit: number, page: number, query: string) {
+    #querys({ limit, page, query }: Query) {
         return `?limit=${limit}&page=${page}&${query}`
     }
 
@@ -26,8 +32,8 @@ export class API<
         if(!result.success) throw result.error
     }
 
-    async getAll(limit: number = 20, page: number = 1, query: string = ""): Promise<z.infer<TList>> {
-        const { data } = await app.get(`${this.endpoint}${this.#querys(limit, page, query)}`)
+    async getAll({limit = 20, page = 1, query = ""}: Query): Promise<z.infer<TList>> {
+        const { data } = await app.get(`${this.endpoint}${this.#querys({limit, page, query})}`)
         return this.schemas.list.parse(data)
     }
 
