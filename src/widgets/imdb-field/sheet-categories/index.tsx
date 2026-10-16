@@ -1,10 +1,9 @@
 "use client"
 
-import {API, CategoryCreateSchema, CategorySchema, Label, Spinner, Toggle} from "@/shared";
+import {API, CategoryCreateSchema, CategorySchema, IFormSheet, Label, Spinner, Toggle} from "@/shared";
 import { z } from 'zod'
 import {useQuery} from "@tanstack/react-query";
 import {Control, Controller} from "react-hook-form";
-import {IFormSheet} from "@/widgets";
 
 interface Props {
   control: Control<IFormSheet>
@@ -49,7 +48,7 @@ export const SheetCategories = ({ control }: Props) => {
                           field.onChange(
                               next
                                 ? [...field.value, item.name]
-                                : field.value.filter((name) => name !== item.name)
+                                : field.value.filter((name: string) => name !== item.name)
                           )
                         }}
                     >

@@ -10,7 +10,8 @@ import {
 } from "@/shared";
 import Image from "next/image";
 import {keepPreviousData, useQuery} from "@tanstack/react-query";
-import {FilterStore} from "@/shared/lib/types/store.interface";
+import {useSearchStore} from "@/shared/lib/store/movieSearchStore";
+import {useEffect} from "react";
 
 const movieAPI = new API("movie", {
   item: MovieSchema,
@@ -21,19 +22,24 @@ const movieAPI = new API("movie", {
 const STALE = 10 * 1000;
 
 export const FieldListGroup = () => {
-  const categories = useFilterStore((s: FilterStore) => s.categories)
+  const categories = useFilterStore((s) => s.categories)
+  const search = useSearchStore((s) => s.searchValue)
+  const setIsPendingSearch = useSearchStore((s) => s.setIsPendignSearch)
+  const setIsPendingFilter = useFilterStore((s) => s.setIsPendignFilter)
 
-  const { data, isPending, error } = useQuery({
-    queryKey: ["movies", categories],
-    queryFn: () => {
-      const query = categories.map((category) => `filterBy=${category}`).join("&");
-      return movieAPI.getAll({ query })
-    },
+  const { data, isFetching, isPending, error } = useQuery({
+    queryKey: ["movies", search, categories],
+    queryFn: () => movieAPI.getAll({ categories, search }),
     staleTime: STALE * 6,
     placeholderData: keepPreviousData,
     refetchInterval: STALE * 8,
     refetchOnWindowFocus: true,
   })
+
+  useEffect(() => {
+    setIsPendingSearch(isFetching);
+    setIsPendingFilter(isFetching);
+  }, [isFetching, setIsPendingSearch, setIsPendingFilter])
 
   return (
     <ScrollArea className="w-full h-full flex items-center justify-center">

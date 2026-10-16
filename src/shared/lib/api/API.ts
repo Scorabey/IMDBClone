@@ -10,7 +10,8 @@ type Schemas<TItem extends ZodType, TCreate extends ZodType, TList extends ZodTy
 interface Query {
     limit?: number
     page?: number
-    query?: string
+    categories?: string[]
+    search?: string
 }
 
 export class API<
@@ -23,8 +24,13 @@ export class API<
         private readonly schemas: Schemas<TItem, TCreate, TList>
     ) {}
 
-    #querys({ limit, page, query }: Query) {
-        return `?limit=${limit}&page=${page}&${query}`
+    #querys({ limit, page, categories, search }: Query) {
+        const params = new URLSearchParams();
+        if(search?.trim()) params.set("search", search)
+        params.set("limit", String(limit))
+        params.set("page", String(page))
+        categories?.forEach((category) => params.append("filterBy", category))
+        return `?${params}`
     }
 
     #validation(dto: z.infer<TCreate>) {
@@ -32,8 +38,8 @@ export class API<
         if(!result.success) throw result.error
     }
 
-    async getAll({limit = 20, page = 1, query = ""}: Query): Promise<z.infer<TList>> {
-        const { data } = await app.get(`${this.endpoint}${this.#querys({limit, page, query})}`)
+    async getAll({limit = 20, page = 1, categories = [], search = ""}: Query): Promise<z.infer<TList>> {
+        const { data } = await app.get(`${this.endpoint}${this.#querys({limit, page, categories, search})}`)
         return this.schemas.list.parse(data)
     }
 

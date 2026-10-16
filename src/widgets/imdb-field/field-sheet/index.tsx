@@ -11,7 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
   IFormSheet,
-  useFilterStore
+  useFilterStore, Spinner
 } from "@/shared";
 import { SheetCategories } from "@/widgets";
 import {useForm} from "react-hook-form";
@@ -19,6 +19,8 @@ import {useState} from "react";
 import {FilterStore} from "@/shared/lib/types/store.interface";
 
 export const FieldSheet = () => {
+  const isPending = useFilterStore((s) => s.isPendignFilter)
+
   const [open, setOpen] = useState<boolean>(false);
 
   const setCategories = useFilterStore((s: FilterStore) => s.setCategories);
@@ -51,7 +53,7 @@ export const FieldSheet = () => {
           <SheetCategories control={control} />
 
           <SheetFooter className="flex flex-row">
-            <Button type="submit">Save changes</Button>
+            <Button type="submit" disabled={isPending}>{isPending && <Spinner/>}Save changes</Button>
             <SheetClose render={<Button variant="outline">Close</Button>} />
           </SheetFooter>
         </form>
