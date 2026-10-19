@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css"
 import { cn } from "@/shared";
 import Providers from "./providers";
+import { AppProvider } from "@/shared/lib/context/app-context/AppContextProvider";
 
 const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 

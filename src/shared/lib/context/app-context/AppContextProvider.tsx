@@ -1,0 +1,57 @@
+"use client";
+
+import { ReactNode, useEffect, useMemo } from "react";
+import {
+  AppContext,
+  API,
+  useFilterStore,
+  useSearchStore,
+  MovieCollectionSchema,
+  CreateMovieSchema,
+  MovieSchema,
+} from "@/shared";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
+
+interface AppProviderInt {
+  children: ReactNode;
+}
+
+const movieAPI = new API("movie", {
+  item: MovieSchema,
+  list: MovieCollectionSchema,
+  create: CreateMovieSchema,
+});
+
+const STALE = 10 * 1000;
+
+export function AppProvider({ children }: AppProviderInt) {
+  const categories = useFilterStore((s) => s.categories);
+  const search = useSearchStore((s) => s.searchValue);
+  const setIsPendingSearch = useSearchStore((s) => s.setIsPendingSearch);
+  const setIsPendingFilter = useFilterStore((s) => s.setIsPendingFilter);
+
+  const { data, isFetching, isPending, error } = useQuery({
+    queryKey: ["movies", search, categories],
+    queryFn: () => movieAPI.getAll({ categories, search }),
+    staleTime: STALE * 6,
+    placeholderData: keepPreviousData,
+    refetchInterval: STALE * 8,
+    refetchOnWindowFocus: true,
+  });
+
+  useEffect(() => {
+    setIsPendingSearch(isFetching);
+    setIsPendingFilter(isFetching);
+  }, [isFetching, setIsPendingSearch, setIsPendingFilter]);
+
+  const value = useMemo(
+    () => ({
+      data,
+      isPending,
+      error,
+    }),
+    [data, isPending, error],
+  );
+
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+}

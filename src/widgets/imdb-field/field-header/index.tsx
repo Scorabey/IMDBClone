@@ -1,5 +1,6 @@
 import { FieldGroup } from "@/shared";
-import {FieldGroupSearch, FieldSheet} from "@/widgets";
+import {FieldGroupSearch} from "@/widgets/imdb-field/field-search";
+import {FieldSheet} from "@/widgets/imdb-field/field-sheet";
 
 export const FieldGroupHeader = () => {
   return (

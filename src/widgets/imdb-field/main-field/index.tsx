@@ -1,5 +1,10 @@
-import { Field, FieldSet, Separator } from "@/shared";
-import { FieldGroupTitle } from "@/widgets";
+import {
+  Field,
+  FieldGroup,
+  FieldSet,
+  Separator
+} from "@/shared";
+import {FieldGroupTitle, FieldPagination} from "@/widgets";
 import { FieldGroupHeader } from "@/widgets";
 import { FieldListGroup } from "@/widgets";
 
@@ -14,6 +19,12 @@ export const MainField = () => {
         <Field className="flex justify-center items-center h-full">
           <FieldListGroup />
         </Field>
+        <Separator />
+        <FieldGroup
+          className="w-full flex justify-center items-center py-2"
+        >
+          <FieldPagination/>
+        </FieldGroup>
       </FieldSet>
     </div>
   );

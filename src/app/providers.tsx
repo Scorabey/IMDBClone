@@ -1,5 +1,6 @@
 'use client'
 
+import { AppProvider } from '@/shared/lib/context/app-context/AppContextProvider'
 import { QueryClient, QueryClientProvider, isServer } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
@@ -29,7 +30,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
+      <AppProvider>{children}</AppProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   )
