@@ -11,3 +11,10 @@ export interface SearchStore {
     setIsPendingSearch: (isPendignSearch: boolean) => void
     setSearchValue: (searchValue: string) => void
 }
+
+export interface PaginationStore {
+    page: number
+    isPendignPagination: boolean
+    setIsPendingPagination: (isPendignPagination: boolean) => void
+    setPage: (page: number) => void
+}

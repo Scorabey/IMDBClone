@@ -23,7 +23,7 @@ export const MainField = () => {
         <FieldGroup
           className="w-full flex justify-center items-center py-2"
         >
-          <FieldPagination/>
+          <FieldPagination visible={4}/>
         </FieldGroup>
       </FieldSet>
     </div>
