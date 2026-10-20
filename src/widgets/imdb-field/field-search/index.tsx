@@ -1,12 +1,12 @@
 'use client'
 
-import {Button, IFormSearch, Input, Spinner} from "@/shared";
+import {Button, IFormSearch, Input, Spinner, usePendingStore} from "@/shared";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useSearchStore} from "@/shared/lib/store/movieSearchStore";
 
 export const FieldGroupSearch = () => {
     const setSearchValue = useSearchStore((s) => s.setSearchValue)
-    const isPending = useSearchStore((s) => s.isPendignSearch)
+    const isPending = usePendingStore((s) => s.isPendingStore)
 
     const { register, handleSubmit } = useForm<IFormSearch>()
 

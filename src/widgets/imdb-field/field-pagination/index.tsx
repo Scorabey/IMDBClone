@@ -7,6 +7,7 @@ import {
   PaginationPrevious,
   useApp,
   usePaginationStore,
+  usePendingStore,
 } from "@/shared";
 import type { MouseEvent } from "react";
 
@@ -26,30 +27,38 @@ const getPages = (visible: number, page: number, totalPages: number) => {
 export const FieldPagination = ({ visible }: FieldPaginattionInt) => {
   const setPage = usePaginationStore((s) => s.setPage)
   const page = usePaginationStore((s) => s.page)
-  const isPendingPagination = usePaginationStore((s) => s.isPendignPagination)
+  const isPendingStore = usePendingStore((s) => s.isPendingStore)
 
   const { data, isPending } = useApp()
 
-  const totalPages = data?.meta.totalPages === undefined ? 1 : data.meta.totalPages
+  let totalPages: number | 1 = 1;
+  let hasNext: boolean = false;
+  let hasPrev: boolean = false;
+
+  if(data?.meta) {
+    totalPages = data.meta.totalPages
+    hasNext = data.meta.hasNext
+    hasPrev = data.meta.hasPrev
+  }
 
   const pages = getPages(visible, page, totalPages)
-  const isFirst = page <= 1
-  const isLast = page >= totalPages
 
   const onClick = (e: MouseEvent<HTMLAnchorElement>, current: number) => {
     e.preventDefault()
     setPage(current)
   }
 
+  const prevDisabled = isPending || !hasPrev || isPendingStore
+  const nextDisabled = isPending || !hasNext || isPendingStore
+
   return (
     <Pagination>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            href="#" 
-            tabIndex={isFirst ? -1 : undefined}
-            aria-disabled={isPending || isFirst || isPendingPagination}
-            className={isPending || isFirst || isPendingPagination ? "pointer-events-none opacity-50" : undefined}
+            tabIndex={hasPrev ? -1 : undefined}
+            aria-disabled={prevDisabled}
+            className={prevDisabled ? "pointer-events-none opacity-50" : undefined}
             onClick={(e) => {
               onClick(e, page - 1)
             }}
@@ -60,8 +69,8 @@ export const FieldPagination = ({ visible }: FieldPaginattionInt) => {
                 key={current}
               >
                 <PaginationLink
-                  aria-disabled={isPending || isPendingPagination}
-                  className={isPending || isPendingPagination ? "pointer-events-none opacity-50" : undefined}
+                  aria-disabled={isPending || isPendingStore}
+                  className={isPending || isPendingStore ? "pointer-events-none opacity-50" : undefined}
                   isActive={current === page}
                   onClick={(e) => {
                     onClick(e, current)
@@ -73,10 +82,9 @@ export const FieldPagination = ({ visible }: FieldPaginattionInt) => {
             ))}
         <PaginationItem>
           <PaginationNext
-            href="#" 
-            tabIndex={isLast ? -1 : undefined}
-            aria-disabled={isPending || isLast || isPendingPagination}
-            className={isPending || isLast || isPendingPagination ? "pointer-events-none opacity-50" : undefined}
+            tabIndex={hasNext ? -1 : undefined}
+            aria-disabled={nextDisabled}
+            className={nextDisabled ? "pointer-events-none opacity-50" : undefined}
             onClick={(e) => {
               onClick(e, page + 1)
             }}

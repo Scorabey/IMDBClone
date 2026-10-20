@@ -11,7 +11,8 @@ import {
   SheetTitle,
   SheetTrigger,
   IFormSheet,
-  useFilterStore, Spinner
+  useFilterStore, Spinner,
+  usePendingStore
 } from "@/shared";
 import { SheetCategories } from "@/widgets";
 import {useForm} from "react-hook-form";
@@ -19,7 +20,7 @@ import {useState} from "react";
 import {FilterStore} from "@/shared/lib/types/store.interface";
 
 export const FieldSheet = () => {
-  const isPending = useFilterStore((s) => s.isPendignFilter)
+  const isPending = usePendingStore((s) => s.isPendingStore)
 
   const [open, setOpen] = useState<boolean>(false);
 

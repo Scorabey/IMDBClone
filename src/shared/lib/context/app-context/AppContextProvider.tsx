@@ -10,6 +10,7 @@ import {
   CreateMovieSchema,
   MovieSchema,
   usePaginationStore,
+  usePendingStore,
 } from "@/shared";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 
@@ -29,9 +30,7 @@ export function AppProvider({ children }: AppProviderInt) {
   const categories = useFilterStore((s) => s.categories);
   const search = useSearchStore((s) => s.searchValue);
   const page = usePaginationStore((s) => s.page)
-  const setIsPendingPaginattion = usePaginationStore((s) => s.setIsPendingPagination)
-  const setIsPendingSearch = useSearchStore((s) => s.setIsPendingSearch);
-  const setIsPendingFilter = useFilterStore((s) => s.setIsPendingFilter);
+  const setPendingStore = usePendingStore((s) => s.setIsPendingStore)
 
   const { data, isFetching, isPending, error } = useQuery({
     queryKey: ["movies", search, categories, page],
@@ -43,10 +42,8 @@ export function AppProvider({ children }: AppProviderInt) {
   });
 
   useEffect(() => {
-    setIsPendingSearch(isFetching);
-    setIsPendingFilter(isFetching);
-    setIsPendingPaginattion(isFetching)
-  }, [isFetching, setIsPendingSearch, setIsPendingFilter, setIsPendingPaginattion]);
+    setPendingStore(isFetching)
+  }, [isFetching, setPendingStore]);
 
   const value = useMemo(
     () => ({
