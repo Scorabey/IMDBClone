@@ -1,3 +1,2 @@
-export * from './AppContext'
-export * from './AppContextProvider'
-export * from './UseAppContext'
+export * from "./APIMovieContext";
+export * from "./APIMovieProvider";

@@ -2,7 +2,7 @@
 
 import { ReactNode, useEffect, useMemo } from "react";
 import {
-  AppContext,
+  APIMovieContext,
   API,
   useFilterStore,
   useSearchStore,
@@ -14,7 +14,7 @@ import {
 } from "@/shared";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 
-interface AppProviderInt {
+interface APIMovieProviderInt {
   children: ReactNode;
 }
 
@@ -26,11 +26,11 @@ const movieAPI = new API("movie", {
 
 const STALE = 10 * 1000;
 
-export function AppProvider({ children }: AppProviderInt) {
+export function APIMovieProvider({ children }: APIMovieProviderInt) {
   const categories = useFilterStore((s) => s.categories);
   const search = useSearchStore((s) => s.searchValue);
-  const page = usePaginationStore((s) => s.page)
-  const setPendingStore = usePendingStore((s) => s.setIsPendingStore)
+  const page = usePaginationStore((s) => s.page);
+  const setPendingStore = usePendingStore((s) => s.setIsPendingStore);
 
   const { data, isFetching, isPending, error } = useQuery({
     queryKey: ["movies", search, categories, page],
@@ -42,7 +42,7 @@ export function AppProvider({ children }: AppProviderInt) {
   });
 
   useEffect(() => {
-    setPendingStore(isFetching)
+    setPendingStore(isFetching);
   }, [isFetching, setPendingStore]);
 
   const value = useMemo(
@@ -54,5 +54,5 @@ export function AppProvider({ children }: AppProviderInt) {
     [data, isPending, error],
   );
 
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+  return <APIMovieContext.Provider value={value}>{children}</APIMovieContext.Provider>;
 }

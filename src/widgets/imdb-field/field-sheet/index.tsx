@@ -11,37 +11,38 @@ import {
   SheetTitle,
   SheetTrigger,
   IFormSheet,
-  useFilterStore, Spinner,
-  usePendingStore
+  useFilterStore,
+  Spinner,
+  usePendingStore,
 } from "@/shared";
 import { SheetCategories } from "@/widgets";
-import {useForm} from "react-hook-form";
-import {useState} from "react";
-import {FilterStore} from "@/shared/lib/types/store.interface";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { FilterStore } from "@/shared";
 
 export const FieldSheet = () => {
-  const isPending = usePendingStore((s) => s.isPendingStore)
+  const isPending = usePendingStore((s) => s.isPendingStore);
 
   const [open, setOpen] = useState<boolean>(false);
 
   const setCategories = useFilterStore((s: FilterStore) => s.setCategories);
 
   const { handleSubmit, control } = useForm<IFormSheet>({
-    defaultValues: { categories: [] }
+    defaultValues: { categories: [] },
   });
 
   const onSubmit = (data: IFormSheet) => {
     setCategories(data.categories);
     setOpen(false);
-  }
+  };
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger render={<Button variant={"outline"}>Categories</Button>} />
       <SheetContent>
         <form
-            className="flex flex-col h-full items-center justify-between pb-2"
-            onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col h-full items-center justify-between pb-2"
+          onSubmit={handleSubmit(onSubmit)}
         >
           <SheetHeader>
             <SheetTitle className="text-2xl">Browse by Category</SheetTitle>
@@ -54,7 +55,9 @@ export const FieldSheet = () => {
           <SheetCategories control={control} />
 
           <SheetFooter className="flex flex-row">
-            <Button type="submit" disabled={isPending}>{isPending && <Spinner/>}Save changes</Button>
+            <Button type="submit" disabled={isPending}>
+              {isPending && <Spinner />}Save changes
+            </Button>
             <SheetClose render={<Button variant="outline">Close</Button>} />
           </SheetFooter>
         </form>

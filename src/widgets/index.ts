@@ -1,1 +1,1 @@
-export * from './imdb-field'
+export * from "./imdb-field";
