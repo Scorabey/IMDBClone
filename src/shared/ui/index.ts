@@ -1,3 +1,5 @@
+export * from "@/shared/ui/icons";
+
 export * from "@/shared/ui/button";
 export * from "@/shared/ui/field";
 export * from "@/shared/ui/label";
