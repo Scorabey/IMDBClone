@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/shared";
 import Providers from "./providers";
 import {LayoutProps} from "next/dist/lib/metadata/metadata-resolution-primitives";
+import { Header } from '@/widgets'
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -35,7 +36,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         inter.variable,
       )}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col px-32 py-24">
+        <Header />
         <Providers>{children}</Providers>
       </body>
     </html>

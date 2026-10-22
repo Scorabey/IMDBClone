@@ -140,8 +140,6 @@ body {
   align-items: center;
   height: 100svh;
   width: 100%;
-  padding-inline: 120px;
-  padding-block: 64px;
   background: var(--background);
   color: var(--foreground);
 }
