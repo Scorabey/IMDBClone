@@ -1,6 +1,7 @@
 {
   "name": "imdbclone",
   "version": "0.1.0",
+  "author": "Scorabey",
   "private": true,
   "scripts": {
     "dev": "next dev",

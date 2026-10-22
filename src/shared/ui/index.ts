@@ -13,3 +13,6 @@ export * from "@/shared/ui/sheet";
 export * from "@/shared/ui/toggle";
 export * from "@/shared/ui/spinner";
 export * from "@/shared/ui/pagination";
+export * from "@/shared/ui/checkbox";
+export * from "@/shared/ui/textarea";
+export * from "@/shared/ui/select";
