@@ -8,6 +8,7 @@ import {
   Label,
   Spinner,
   Toggle,
+  useCategory
 } from "@/shared";
 import { z } from "zod";
 import { useQuery } from "@tanstack/react-query";
@@ -17,22 +18,8 @@ interface Props {
   control: Control<IFormSheet>;
 }
 
-const categoryAPI = new API("category", {
-  item: CategorySchema,
-  list: z.array(CategorySchema),
-  create: CategoryCreateSchema,
-});
-
-const STALE = 10 * 1000;
-
 export const SheetCategories = ({ control }: Props) => {
-  const { data, isPending, error } = useQuery({
-    queryKey: ["categories"],
-    queryFn: () => categoryAPI.getAll({}),
-    staleTime: STALE * 6,
-    refetchInterval: STALE * 8,
-    refetchOnWindowFocus: true,
-  });
+  const { data, isPending, error } = useCategory()
 
   return (
     <div className="h-full w-full px-3 py-2 gap-1.5 grid auto-rows-max grid-cols-4">

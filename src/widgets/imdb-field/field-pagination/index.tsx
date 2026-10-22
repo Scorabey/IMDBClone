@@ -7,7 +7,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-  useApp,
+  useMovie,
   usePaginationStore,
   usePendingStore,
 } from "@/shared";
@@ -31,7 +31,7 @@ export const FieldPagination = ({ visible }: FieldPaginationInt) => {
   const page = usePaginationStore((s) => s.page);
   const isPendingStore = usePendingStore((s) => s.isPendingStore);
 
-  const { data, isPending } = useApp();
+  const { data, isPending } = useMovie();
 
   let totalPages: number | 1 = 1;
   let hasNext: boolean = false;

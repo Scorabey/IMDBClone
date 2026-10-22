@@ -1,6 +1,6 @@
 "use client";
 
-import { APIMovieProvider } from "@/shared";
+import { APIMovieProvider, APICategoryProvider } from "@/shared";
 import {
   QueryClient,
   QueryClientProvider,
@@ -34,7 +34,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <APIMovieProvider>{children}</APIMovieProvider>
+      <APIMovieProvider>
+        <APICategoryProvider>{children}</APICategoryProvider>
+      </APIMovieProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

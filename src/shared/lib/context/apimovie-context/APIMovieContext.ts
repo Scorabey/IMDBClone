@@ -1,20 +1,14 @@
 "use client";
 
 import {createContext, useContext} from "react";
-import { MovieCollection } from "@/shared";
+import { MovieCollection, APIContextInt } from "@/shared";
 
-interface APIContextInt {
-  data: MovieCollection | undefined;
-  error: Error | null;
-  isPending: boolean;
-}
+export const APIMovieContext = createContext<APIContextInt<MovieCollection> | null>(null);
 
-export const APIMovieContext = createContext<APIContextInt | null>(null);
-
-export function useApp() {
+export function useMovie() {
   const context = useContext(APIMovieContext);
   if (!context) {
-    throw new Error("Use APIMovieContext on AppProvider");
+    throw new Error("Use APIMovieContext on APIMovieProvider");
   }
   return context;
 }

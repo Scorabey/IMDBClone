@@ -10,10 +10,10 @@ import {
   Spinner,
 } from "@/shared";
 import Image from "next/image";
-import { useApp } from "@/shared";
+import { useMovie } from "@/shared";
 
 export const FieldListGroup = () => {
-  const { data, isPending, error } = useApp();
+  const { data, isPending, error } = useMovie();
 
   return (
     <ScrollArea className="w-full h-full flex items-center justify-center">
