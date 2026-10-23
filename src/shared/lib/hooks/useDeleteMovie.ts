@@ -1,27 +1,27 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   API,
-  CreateMovie,
+  Movie,
   CreateMovieSchema,
   MovieCollectionSchema,
   MovieSchema,
 } from "@/shared";
 
-const movieApi = new API("movie", {
+const movieAPI = new API("movie", {
   list: MovieCollectionSchema,
   item: MovieSchema,
   create: CreateMovieSchema,
 });
 
-export const useMutateMovie = () => {
+export const useDeleteMovie = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (newMovie: CreateMovie) => {
-      return movieApi.create(newMovie);
+    mutationFn: (id: number) => {
+      return movieAPI.delete(id);
     },
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["movies"] });
+    onSuccess: (data: Movie) => {
+      queryClient.invalidateQueries({ queryKey: data.id });
     }
-  });
+  })
 }

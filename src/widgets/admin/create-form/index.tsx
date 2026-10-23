@@ -22,14 +22,14 @@ import {
   useCategory,
   CreateMovie,
   CreateMovieSchema,
-  useMutateMovie,
+  useCreateMovie,
 } from "@/shared";
 import { FormTitle, FormButtons, FormContent } from '@/widgets'
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
 
 export const AdminMain = () => {
-  const { mutate } = useMutateMovie();
+  const { mutate } = useCreateMovie();
 
   const { data, isPending, error } = useCategory()
 

@@ -1,1 +1,2 @@
-export * from "./useMutateMovie"
+export * from "./useCreateMovie"
+export * from "./useDeleteMovie";
