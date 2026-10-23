@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, IFormSearch, Input, Spinner, usePendingStore } from "@/shared";
+import { Button, IFormSearch, Input, Spinner, usePendingStore, Skeleton } from "@/shared";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useSearchStore } from "@/shared";
 
@@ -14,6 +14,24 @@ export const FieldGroupSearch = () => {
     setSearchValue(data.inputSearch);
   };
 
+  if(isPending) {
+    return (
+      <div className="flex gap-2">
+        <Skeleton className="w-64 h-8" />
+        <Button
+          variant={"default"}
+          size={"default"}
+          className="text-base font-bold"
+          type="submit"
+          disabled={isPending}
+        >
+          {isPending && <Spinner />}
+          Search
+        </Button>
+      </div>
+    );
+  }
+  
   return (
     <form className="flex gap-2" onSubmit={handleSubmit(onSubmit)}>
       <Input
@@ -29,7 +47,6 @@ export const FieldGroupSearch = () => {
         type="submit"
         disabled={isPending}
       >
-        {isPending && <Spinner />}
         Search
       </Button>
     </form>

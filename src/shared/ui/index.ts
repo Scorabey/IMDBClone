@@ -16,3 +16,4 @@ export * from "@/shared/ui/pagination";
 export * from "@/shared/ui/checkbox";
 export * from "@/shared/ui/textarea";
 export * from "@/shared/ui/select";
+export * from "@/shared/ui/skeleton";

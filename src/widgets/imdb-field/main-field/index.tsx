@@ -3,6 +3,8 @@ import { FieldGroupTitle, FieldPagination } from "@/widgets";
 import { FieldGroupHeader } from "@/widgets";
 import { FieldListGroup } from "@/widgets";
 
+const VISIBLE_PAGINATION_ITEM = 4
+
 export const MainField = () => {
   return (
     <div className="min-w-1/4 max-w-2/4 min-h-3/12 max-h-4/5 border border-transparent rounded-md">
@@ -16,7 +18,7 @@ export const MainField = () => {
         </Field>
         <Separator />
         <FieldGroup className="w-full flex justify-center items-center py-2">
-          <FieldPagination visible={4} />
+          <FieldPagination visible={VISIBLE_PAGINATION_ITEM} />
         </FieldGroup>
       </FieldSet>
     </div>
