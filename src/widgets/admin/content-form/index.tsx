@@ -29,7 +29,6 @@ type DefaultValue = { label: string; value: string };
 
 interface FormContentProps {
   data: Category[] | undefined;
-  defaultValue: DefaultValue;
   error?: Error | null;
   isPending: boolean;
   register: UseFormRegister;
@@ -38,7 +37,6 @@ interface FormContentProps {
 }
 
 export const FormContent = ({
-  defaultValue,
   data,
   error,
   isPending,

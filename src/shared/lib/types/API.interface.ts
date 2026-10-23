@@ -32,7 +32,7 @@ const MovieSchema = z.object({
   title: z.string(),
   description: z.string(),
   img: z.string(),
-  categories: z.array(CategorySchema),
+  categories: z.array(CategorySchema).optional(),
   _links: MovieLinksSchema,
 });
 
