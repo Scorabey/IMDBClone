@@ -1,9 +1,10 @@
 "use client";
 
 import {createContext, useContext} from "react";
-import { MovieCollection, APIContextInt } from "@/shared";
+import { MovieCollection } from "@/entity"
+import { APIContextInt } from "@/shared";
 
-export const APIMovieContext = createContext<APIContextInt<MovieCollection> | null>(null);
+export const APIMovieContext = createContext<APIContextInt<MovieCollection> | undefined>(undefined);
 
 export function useMovie() {
   const context = useContext(APIMovieContext);

@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect, useMemo } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 import {
   APIMovieContext,
   CreateMovieSchema,
@@ -36,7 +36,7 @@ export function APIMovieProvider({ children }: APIMovieProviderInt) {
 
   const { data, isFetching, isPending, error } = useQuery({
     queryKey: ["movies", search, categories, page],
-    queryFn: () => movieAPI.getAll({ categories, search, limit: 4, page }),
+    queryFn: () => movieAPI.getAll({ categories, search, limit: 20, page }),
     staleTime: STALE * 6,
     placeholderData: keepPreviousData,
     refetchInterval: STALE * 8,
