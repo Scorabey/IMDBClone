@@ -3,12 +3,14 @@
 import { ReactNode, useEffect, useMemo } from "react";
 import {
   APIMovieContext,
+  CreateMovieSchema,
+  MovieSchema,
+  MovieCollectionSchema,
+} from "@/entity";
+import {
   API,
   useFilterStore,
   useSearchStore,
-  MovieCollectionSchema,
-  CreateMovieSchema,
-  MovieSchema,
   usePaginationStore,
   usePendingStore,
 } from "@/shared";

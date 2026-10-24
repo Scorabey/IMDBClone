@@ -1,5 +1,6 @@
 'use client'
 
+import { type Category, CreateMovie } from "@/entity";
 import {
   Field,
   FieldGroup,
@@ -14,9 +15,7 @@ import {
   SelectValue,
   Textarea,
   FieldContent,
-  type Category,
   Skeleton,
-  CreateMovie,
 } from "@/shared";
 import {
   UseFormRegister,
@@ -71,7 +70,7 @@ export const FormContent = ({
   }
 
   return (
-    <FieldContent className={"gap-4"}>
+    <FieldContent className={"gap-4 h-full"}>
       <FieldGroup className="flex flex-row w-full">
         <Field>
           <FieldLabel>Movie Title</FieldLabel>
@@ -98,14 +97,15 @@ export const FormContent = ({
           )}
         </Field>
       </FieldGroup>
-      <FieldGroup className="flex flex-col w-full">
-        <Field>
+      <FieldGroup className="flex flex-col w-full h-full">
+        <Field className="h-full">
           <FieldLabel>Movie Description</FieldLabel>
           <Textarea
             {...register("description", {
               required: "Description field is required",
             })}
             placeholder="Enter descripttion..."
+            className="max-h-full"
           />
           {errors.description && (
             <FieldLabel className={"text-sm text-red-400 font-bold"}>

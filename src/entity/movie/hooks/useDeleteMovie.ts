@@ -1,10 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  API,
   Movie,
   CreateMovieSchema,
-  MovieCollectionSchema,
   MovieSchema,
+  MovieCollectionSchema,
+} from "@/entity";
+import {
+  API
 } from "@/shared";
 
 const movieAPI = new API("movie", {

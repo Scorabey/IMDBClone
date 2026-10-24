@@ -10,7 +10,7 @@ import {
   Spinner,
 } from "@/shared";
 import Image from "next/image";
-import { useMovie } from "@/shared";
+import { useMovie } from "@/entity";
 
 export const FieldListGroup = () => {
   const { data, isPending, error } = useMovie();

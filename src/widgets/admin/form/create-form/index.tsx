@@ -1,6 +1,12 @@
 'use client'
 
 import {
+  useCategory,
+  CreateMovie,
+  CreateMovieSchema,
+  useCreateMovie,
+} from "@/entity";
+import {
   FieldGroup,
   FieldSet,
   FieldLegend,
@@ -19,10 +25,6 @@ import {
   SelectGroup,
   SelectItem,
   SelectLabel,
-  useCategory,
-  CreateMovie,
-  CreateMovieSchema,
-  useCreateMovie,
 } from "@/shared";
 import { FormTitle, FormButtons, FormContent } from '@/widgets'
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -50,10 +52,10 @@ export const AdminMain = () => {
   };
 
   return (
-    <div className="w-full max-w-md">
+    <div className="w-full max-w-md h-full">
       <form onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))}>
-        <FieldGroup>
-          <FieldSet className={"gap-4"}>
+        <FieldGroup className={"h-full"}>
+          <FieldSet className={"gap-4 h-full"}>
             <FormTitle className={"gap-1"} isPending={isPending} />
             <FormContent
               data={data}

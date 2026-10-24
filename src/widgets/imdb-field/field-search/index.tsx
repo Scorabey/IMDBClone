@@ -1,6 +1,7 @@
 "use client";
 
-import { Button, IFormSearch, Input, Spinner, usePendingStore, Skeleton } from "@/shared";
+import { IFormSearch } from "@/entity";
+import { Button, Input, Spinner, usePendingStore, Skeleton } from "@/shared";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useSearchStore } from "@/shared";
 

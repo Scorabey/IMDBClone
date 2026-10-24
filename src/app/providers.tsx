@@ -1,6 +1,6 @@
 "use client";
 
-import { APIMovieProvider, APICategoryProvider } from "@/shared";
+import { APIMovieProvider, APICategoryProvider } from "@/entity";
 import {
   QueryClient,
   QueryClientProvider,

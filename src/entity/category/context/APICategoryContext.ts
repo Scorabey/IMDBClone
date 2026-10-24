@@ -1,10 +1,10 @@
 "use client";
 
 import { createContext, useContext } from "react";
+import { Category } from "@/entity";
 import {
   MovieCollection,
   APIContextInt,
-  Category,
 } from "@/shared";
 
 export const APICategoryContext = createContext<APiContextInt<Category> | null>(

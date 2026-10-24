@@ -1,8 +1,8 @@
 "use client"
 
-import { APICategoryContext } from  "@/shared"
+import { APICategoryContext, CategoryCreateSchema, CategorySchema } from  "@/entity"
 import { useMemo } from "react";
-import { API, CategoryCreateSchema, CategorySchema } from "@/shared";
+import { API } from "@/shared";
 import { useQuery } from "@tanstack/react-query";
 import { z } from "zod"
 

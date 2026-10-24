@@ -1,5 +1,6 @@
 "use client";
 
+import { useMovie } from "@/entity";
 import {
   Pagination,
   PaginationContent,
@@ -7,7 +8,6 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-  useMovie,
   usePaginationStore,
   usePendingStore,
 } from "@/shared";
