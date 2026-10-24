@@ -1,4 +1,5 @@
 import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle, FilmIcon, ItemGroup, Button, SettigsIcon, TrashIcon } from "@/shared";
+import { useDeleteMovie } from '@/entity'
 
 interface ListItemProps {
   title: string;
@@ -7,6 +8,8 @@ interface ListItemProps {
 }
 
 export const ListItem = ({ title, description, id }: ListItemProps) => {
+  const { mutate: deleteMovie } = useDeleteMovie()
+
   return (
     <Item variant={"outline"} className={"flex flex-row"}>
       <ItemMedia variant={"icon"} className={"flex-col"}>
@@ -33,6 +36,7 @@ export const ListItem = ({ title, description, id }: ListItemProps) => {
           className={"w-fit h-fit p-2"}
           type={"button"}
           aria-roledescription={"button-delete"}
+          onClick={() => deleteMovie(Number(id))}
         >
           <TrashIcon className={"stroke-red-600 fill-none"} />
         </Button>

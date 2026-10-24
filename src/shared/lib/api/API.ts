@@ -16,6 +16,8 @@ interface Query {
   page?: number;
   categories?: string[];
   search?: string;
+  sortBy?: "title" | "id";
+  orderBy?: "desc" | "asc";
 }
 
 export class API<
@@ -28,11 +30,13 @@ export class API<
     private readonly schemas: Schemas<TItem, TCreate, TList>,
   ) {}
 
-  #querys({ limit, page, categories, search }: Query) {
+  #querys({ limit, page, categories, search, sortBy, orderBy }: Query) {
     const params = new URLSearchParams();
     if (search?.trim()) params.set("search", search);
     params.set("limit", String(limit));
     params.set("page", String(page));
+    params.set("sortBy", String(sortBy));
+    params.set("orderBy", String(orderBy));
     categories?.forEach((category) => params.append("filterBy", category));
     return `?${params}`;
   }
@@ -47,9 +51,11 @@ export class API<
     page = 1,
     categories = [],
     search = "",
+    sortBy = "title",
+    orderBy = "desc",
   }: Query): Promise<z.infer<TList>> {
     const { data } = await app.get(
-      `${this.endpoint}${this.#querys({ limit, page, categories, search })}`,
+      `${this.endpoint}${this.#querys({ limit, page, categories, search, sortBy, orderBy })}`,
     );
     return this.schemas.list.parse(data);
   }
@@ -74,7 +80,6 @@ export class API<
   }
 
   async delete(id: number): Promise<z.infer<TItem>> {
-    const { data } = await app.delete(`${this.endpoint}/${id}`);
-    return this.schemas.item.parse(data);
+    return await app.delete(`${this.endpoint}/${id}`);
   }
 }

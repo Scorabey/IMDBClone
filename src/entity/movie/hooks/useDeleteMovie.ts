@@ -19,11 +19,11 @@ export const useDeleteMovie = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (id: number) => {
-      return movieAPI.delete(id);
+    mutationFn: (id: number) => movieAPI.delete(id),
+    onSuccess: (data, id) => {
+      queryClient.removeQueries({ queryKey: ["movie", id] });
+      queryClient.invalidateQueries({ queryKey: ["movies"] });
     },
-    onSuccess: (data: Movie) => {
-      queryClient.invalidateQueries({ queryKey: data.id });
-    }
+    onError: (err) => {console.error(err)}
   })
 }
