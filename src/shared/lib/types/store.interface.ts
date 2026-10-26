@@ -17,3 +17,22 @@ export interface PendingStore {
   isPendingStore: boolean;
   setIsPendingStore: (isPendingStore: boolean) => void;
 }
+
+export interface SortingStore<T> {
+  sortingStore: T;
+  setSortingStore: (sortingStore: T) => void;
+}
+
+interface QueriesStore {
+  search: string;
+  page: number;
+  sortBy: "title" | "id";
+  orderBy: "asc" | "desc";
+  limit: number;
+  categories: string[];
+}
+
+export interface QueryStoreInt {
+  queries: QueriesStore;
+  setQueries: (queries: QueriesStore) => void;
+}

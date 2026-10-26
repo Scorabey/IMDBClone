@@ -4,15 +4,16 @@ import { IFormSearch } from "@/entity";
 import { Button, Input, Spinner, usePendingStore, Skeleton } from "@/shared";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useSearchStore } from "@/shared";
+import { useQueryStore } from "@/shared/lib/store/queryStore";
 
 export const FieldGroupSearch = () => {
-  const setSearchValue = useSearchStore((s) => s.setSearchValue);
+  const setQuery = useQueryStore((s) => s.setQueries);
   const isPending = usePendingStore((s) => s.isPendingStore);
 
   const { register, handleSubmit } = useForm<IFormSearch>();
 
   const onSubmit: SubmitHandler<IFormSearch> = (data) => {
-    setSearchValue(data.inputSearch);
+    setQuery({ search: data.inputSearch });
   };
 
   if(isPending) {

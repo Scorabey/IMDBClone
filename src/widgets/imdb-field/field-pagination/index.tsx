@@ -12,6 +12,7 @@ import {
   usePendingStore,
 } from "@/shared";
 import type { MouseEvent } from "react";
+import { useQueryStore } from "@/shared/lib/store/queryStore";
 
 interface FieldPaginationInt {
   visible: number;
@@ -27,8 +28,8 @@ const getPages = (visible: number, page: number, totalPages: number) => {
 };
 
 export const FieldPagination = ({ visible }: FieldPaginationInt) => {
-  const setPage = usePaginationStore((s) => s.setPage);
-  const page = usePaginationStore((s) => s.page);
+  const setQuery = useQueryStore((s) => s.setQueries);
+  const { page } = useQueryStore((s) => s.queries);
   const isPendingStore = usePendingStore((s) => s.isPendingStore);
 
   const { data, isPending } = useMovie();
@@ -47,7 +48,7 @@ export const FieldPagination = ({ visible }: FieldPaginationInt) => {
 
   const onClick = (e: MouseEvent<HTMLAnchorElement>, current: number) => {
     e.preventDefault();
-    setPage(current);
+    setQuery({ page: current });
   };
 
   const prevDisabled = isPending || !hasPrev || isPendingStore;

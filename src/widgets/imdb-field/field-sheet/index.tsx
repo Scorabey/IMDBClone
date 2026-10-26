@@ -19,20 +19,21 @@ import { SheetCategories } from "@/widgets";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { FilterStore } from "@/shared";
+import { useQueryStore } from "@/shared/lib/store/queryStore";
 
 export const FieldSheet = () => {
   const isPending = usePendingStore((s) => s.isPendingStore);
 
   const [open, setOpen] = useState<boolean>(false);
 
-  const setCategories = useFilterStore((s: FilterStore) => s.setCategories);
+  const setQuery = useQueryStore((s) => s.setQueries);
 
   const { handleSubmit, control } = useForm<IFormSheet>({
     defaultValues: { categories: [] },
   });
 
   const onSubmit = (data: IFormSheet) => {
-    setCategories(data.categories);
+    setQuery({ categories: data.categories });
     setOpen(false);
   };
 
